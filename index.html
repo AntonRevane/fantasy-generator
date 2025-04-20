@@ -26,7 +26,7 @@
                     class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 <option value="Dragonlords">Dragonlords</option>
                 <option value="Clockwork">Clockwork</option>
-                <option value="GothicHorror">GothicHorror</option>
+                <option value="GothicHorror">GothicHorror</Horror>
             </select>
         </div>
 
@@ -166,11 +166,11 @@
                 if (theme === "Dragonlords") {
                     const relationshipRoll = Math.random();
                     if (relationshipRoll < 0.3) {
-                        dragonRelationship = " Servants of a Dragon Lord. ";
+                        dragonRelationship = " Ruled by a Dragon Lord. ";
                     } else if (relationshipRoll < 0.6) {
                         dragonRelationship = " Mortal enemies of Dragons. ";
                     } else {
-                        dragonRelationship = " Riders of Dragons. ";
+                        dragonRelationship = " Dragon riders. ";
                     }
                 }
 
@@ -189,16 +189,21 @@
                     const raceElement = baseRace.element;
 
                     if (randomModifier === "Neither") {
-                        gothicHorrorAlignment = " Made an uneasy bargain with the Dark Forces. ";
+                        if (Math.random() < 0.5) {
+                             gothicHorrorAlignment = " Made an uneasy bargain with the Dark Forces. ";
+                        }
+                        else {
+                            gothicHorrorAlignment = " They struggle against the Dark Forces. ";
+                        }
                     }
                     else if (randomModifier === "Holy" && raceElement !== "Dark") {
-                        gothicHorrorAlignment = " Struggles against the Dark Forces. ";
+                        gothicHorrorAlignment = " They struggle against the Dark Forces. ";
                     } else if (randomModifier === "Dark" || raceElement === "Dark") {
                         gothicHorrorAlignment = " Are loyal servants of the Dark Forces. ";
                     }
                      else if (randomModifier === "Holy/Dark" || randomModifier === "Dark/Holy") {
                         if (randomModifier.includes("Holy")) {
-                            gothicHorrorAlignment = " Struggles against the Dark Forces. ";
+                            gothicHorrorAlignment = " They struggle against the Dark Forces. ";
                         }
                         else {
                             gothicHorrorAlignment = " Are loyal servants of the Dark Forces. ";
@@ -268,86 +273,86 @@
         }
 
         function generateFactionName(baseRaceName, modifier, theme, raceName, gothicHorrorAlignment, dragonRelationship, clockworkAffiliation) {
-            const namePrefixes = {
+            const adjectives = {
                 Holy: ["Celestial", "Sacred", "Divine", "Radiant", "Blessed"],
                 Dark: ["Shadow", "Night", "Abyssal", "Nether", "Sinister"],
                 Fire: ["Blazing", "Infernal", "Ember", "Scorching", "Fiery"],
                 Water: ["Aquatic", "Tidal", "Riptide", "Azure", "Abyssal"],
                 Grass: ["Verdant", "Sylvan", "Emerald", "Thorned", "Wild"],
-            };
-
-            const baseNameAdjectives = {
                 Elves: ["Ancient", "Mystical", "Graceful", "Enchanted", "Wise"],
                 Tieflings: ["Cunning", "Shadowy", "Passionate", "Fiendish", "Intrepid"],
                 Goblins: ["Wily", "Resourceful", "Mischievous", "Savage", "Tenacious"],
                 Tritons: ["Sovereign", "Majestic", "Abyssal", "Tempestuous", "Resolute"],
                 Aasimar: ["Righteous", "Luminous", "Seraphic", "Exalted", "Virtuous"],
+                Dragonlords: ["Dragon", "Wyrm", "Flame", "Sky", "Draconic"],
+                Clockwork: ["Clockwork", "Gear", "Steam", "Cog", "Automaton"],
+                GothicHorror: ["Night", "Gloom", "Dusk", "Shadow", "Vampire"],
+                // Add more adjectives as needed
             };
 
-            const nameSuffixes = {
+            const nouns = {
                 Holy: ["Guardians", "Crusaders", "Order", "Host", "Sentinels"],
                 Dark: ["Legion", "Cabal", "Cult", "Brood", "Syndicate"],
                 Fire: ["Legion", "Horde", "Conclave", "Host", "Fury"],
                 Water: ["Tide", "Dominion", "Conclave", "Host", "Navy"],
                 Grass: ["Conclave", "Circle", "Host", "Wardens", "Enclave"],
-                Dragonlords: ["Dragonriders", "Dragonlords", "Wyrmspeakers", "Flamebringers", "Skysovereigns"],
-                Clockwork: ["Cogsmiths", "Mechanists", "Gearforged", "Automatons", "Clockworks"],
-                GothicHorror: ["Nightwalkers", "Gloomseekers", "Duskdwellers", "Shadowkin", "Vampires"]
+                Elves: ["Kin", "Lords", "Council", "People", "Guardians"],
+                Tieflings: ["Pact", "Kindred", "Court", "Throng", "Shadows"],
+                Goblins: ["Tribe", "Horde", "Clan", "Warriors", "Maniacs"],
+                Tritons: ["Tribe", "Kingdom", "Court", "Guardians", "Deep"],
+                Aasimar: ["Host", "Choir", "Order", "Guardians", "Lightbringers"],
+                Dragonlords: ["Riders", "Lords", "Speakers", "Bringers", "Sovereigns"],
+                Clockwork: ["Smiths", "Mechanists", "Forged", "Automatons", "Works"],
+                GothicHorror: ["Walkers", "Seekers", "Dwellers", "Kin", "Lords"],
+                // Add more nouns as needed
             };
 
-            let themePrefix = "";
-            let themeSuffix = "";
+            let themeAdjective = "";
+            let themeNoun = "";
 
-            if (theme === "Dragonlords") {
+             if (theme === "Dragonlords") {
                 if (dragonRelationship.includes("Dragon Lord")) {
-                    themePrefix = "Dragonlord ";
-                    themeSuffix = " " + nameSuffixes.Dragonlords[Math.floor(Math.random() * nameSuffixes.Dragonlords.length)];
+                    themeAdjective = adjectives.Dragonlords[Math.floor(Math.random() * adjectives.Dragonlords.length)];
+                    themeNoun = nouns.Dragonlords[Math.floor(Math.random() * nouns.Dragonlords.length)];
                 } else if (dragonRelationship.includes("enemies")) {
-                    themePrefix = "Dragonbane ";
+                    themeAdjective = "Dragonbane";
+                    themeNoun = nouns.Dragonlords[Math.floor(Math.random() * nouns.Dragonlords.length)];
                 } else {
-                    themeSuffix = " " + nameSuffixes.Dragonlords[Math.floor(Math.random() * nameSuffixes.Dragonlords.length)];
+                    themeAdjective = adjectives.Dragonlords[Math.floor(Math.random() * adjectives.Dragonlords.length)];
+                    themeNoun = nouns.Dragonlords[Math.floor(Math.random() * nouns.Dragonlords.length)];
                 }
             }
 
             if (theme === "Clockwork") {
                 if (clockworkAffiliation.includes("cursed")) {
-                    themePrefix = "Techbane ";
+                    themeAdjective = "Techbane";
+                    themeNoun = nouns.Clockwork[Math.floor(Math.random() * nouns.Clockwork.length)];
                 } else if (clockworkAffiliation.includes("Revere")) {
-                    themePrefix = "Techpriest ";
-                    themeSuffix = " " + nameSuffixes.Clockwork[Math.floor(Math.random() * nameSuffixes.Clockwork.length)];
-                }
-                 else {
-                    themeSuffix = " " + nameSuffixes.Clockwork[Math.floor(Math.random() * nameSuffixes.Clockwork.length)];
+                    themeAdjective = "Techpriest";
+                    themeNoun = nouns.Clockwork[Math.floor(Math.random() * nouns.Clockwork.length)];
+                } else {
+                    themeAdjective = adjectives.Clockwork[Math.floor(Math.random() * adjectives.Clockwork.length)];
+                    themeNoun = nouns.Clockwork[Math.floor(Math.random() * nouns.Clockwork.length)];
                 }
             }
 
             if (theme === "GothicHorror") {
                 if (gothicHorrorAlignment.includes("Struggle")) {
-                    themePrefix = "Lightbringer ";
-                    themeSuffix = " " + nameSuffixes.GothicHorror[Math.floor(Math.random() * nameSuffixes.GothicHorror.length)];
+                    themeAdjective = "Lightbringer";
+                    themeNoun = nouns.GothicHorror[Math.floor(Math.random() * nouns.GothicHorror.length)];
                 } else if (gothicHorrorAlignment.includes("loyal")) {
-                    themePrefix = "Darkblood ";
-                    themeSuffix = " " + nameSuffixes.GothicHorror[Math.floor(Math.random() * nameSuffixes.GothicHorror.length)];
+                    themeAdjective = "Darkblood";
+                    themeNoun = nouns.GothicHorror[Math.floor(Math.random() * nouns.GothicHorror.length)];
                 } else {
-                    themeSuffix = " " + nameSuffixes.GothicHorror[Math.floor(Math.random() * nameSuffixes.GothicHorror.length)];
+                    themeAdjective = adjectives.GothicHorror[Math.floor(Math.random() * adjectives.GothicHorror.length)];
+                    themeNoun = nouns.GothicHorror[Math.floor(Math.random() * nouns.GothicHorror.length)];
                 }
             }
 
+            const adjective = adjectives[modifier] ? adjectives[modifier][Math.floor(Math.random() * adjectives[modifier].length)] : adjectives[raceName][Math.floor(Math.random() * adjectives[raceName].length)];
+            const noun = nouns[modifier] ? nouns[modifier][Math.floor(Math.random() * nouns[modifier].length)] : nouns[raceName][Math.floor(Math.random() * nouns[raceName].length)];
 
-            const prefix = namePrefixes[modifier] ? namePrefixes[modifier][Math.floor(Math.random() * namePrefixes[modifier].length)] : "";
-            const baseAdjective = baseNameAdjectives[raceName] ? baseNameAdjectives[raceName][Math.floor(Math.random() * baseNameAdjectives[raceName].length)] : "";
-            const suffix = nameSuffixes[modifier] ? nameSuffixes[modifier][Math.floor(Math.random() * nameSuffixes[modifier].length)] : "";
-
-            let finalName = "";
-            if (Math.random() < 0.5) {
-                finalName = `${themePrefix}${prefix} ${baseAdjective}${themeSuffix}`;
-            }
-            else {
-                 finalName = `${themePrefix}${prefix} ${suffix}${themeSuffix}`;
-            }
-
-            // Trim extra spaces
-            return finalName.trim();
+            return `${themeAdjective || adjective} ${themeNoun || noun}`;
         }
 
         function generateFactionDescription(baseRaceName, modifier, theme, raceName) {
